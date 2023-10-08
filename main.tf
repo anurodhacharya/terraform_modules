@@ -13,7 +13,7 @@ resource "aws_vpc" "prod-vpc" {
 }
 
 # Subnet
-resource "aws_subnet" "my_subnet" {
+resource "aws_subnet" "subnet-1" {
   vpc_id     = aws_vpc.prod-vpc.id
   cidr_block = "172.16.10.0/24"
   availability_zone = "us-east-1a"
@@ -91,18 +91,18 @@ resource "aws_security_group" "allow_web" {
 # Network interface with an ip in the subnet
 resource "aws_network_interface" "web-server-nic" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = ["172.10.10.100"]
+  private_ips     = ["172.16.10.100"]
   security_groups = [aws_security_group.allow_web.id]
 }
 
 # Elastic IP to the network interface that was created
 resource "aws_eip" "one" {
   network_interface         = aws_network_interface.web-server-nic.id
-  associate_with_private_ip = "10.0.1.50"
+  associate_with_private_ip = "172.16.10.100"
   depends_on = [aws_internet_gateway.gw]
 }
 
-# Installing Ubuntu server and install/enable apache2
+# Installing Ubuntu server
 resource "aws_instance" "web_server" {
   ami           = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
@@ -114,7 +114,7 @@ resource "aws_instance" "web_server" {
   }
 
   tags = {
-    Name = "tf-example"
+    Name = "web_server"
   }
 }
 
