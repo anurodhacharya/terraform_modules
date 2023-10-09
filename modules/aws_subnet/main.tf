@@ -1,9 +1,8 @@
 # Subnet
 resource "aws_subnet" "subnet-1" {
-  vpc_id     = aws_vpc.prod-vpc.id
-  cidr_block = "172.16.10.0/24"
+  vpc_id     = var.vpc_id
+  cidr_block = var.subnet_cidr
   availability_zone = "us-east-1a"
-  tags = {
-    Name = "prod-subnet"
-  }
+
+  tags = var.subnet_tag
 }

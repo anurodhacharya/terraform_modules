@@ -2,7 +2,7 @@
 resource "aws_security_group" "allow_web" {
   name        = "allow_web"
   description = "Allow Web inbound traffic"
-  vpc_id      = aws_vpc.prod-vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description      = "HTTPS from VPC"
@@ -36,7 +36,6 @@ resource "aws_security_group" "allow_web" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = {
-    Name = "allow_web"
-  }
+  tags = var.sg_name
 }
+

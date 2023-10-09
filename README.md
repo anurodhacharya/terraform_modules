@@ -1,0 +1,1 @@
+A Terraform project designed to simplify infrastructure management by leveraging modular design principles.
