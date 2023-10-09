@@ -6,21 +6,21 @@ module "vpc" {
 
 module "subnet" {
     source = "./modules/aws_subnet"
-    vpc_id = module.vpc.vpc_id
+    vpcId = module.vpc.vpc_id_val           
     subnet_cidr = var.subnet_cidr
     subnet_tag = var.subnet_tag
 }
 
 module "sg" {
     source = "./modules/aws_sg"
-    vpc_id = module.vpc.vpc_id
+    vpc_id = module.vpc.vpc_id_val
     sg_name = var.sg_name
 }
 
 module "route_table" {
     source = "./modules/aws_route_table"
     gw_id = module.igw.aws_internet_gateway
-    vpc_id = module.vpc.vpc_id
+    vpc_id = module.vpc.vpc_id_val
     subnet_id = module.subnet.subnet_id
 }
 
@@ -33,7 +33,7 @@ module "nic" {
 
 module "igw" {
     source = "./modules/aws_igw"
-    vpc_id = module.vpc.vpc_id
+    vpc_id = module.vpc.vpc_id_val
 }
 
 module "ec2" {

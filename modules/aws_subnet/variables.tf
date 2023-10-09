@@ -1,4 +1,4 @@
-variable "vpc_id" {
+variable "vpcId" {
   type = string
 }
 
@@ -11,19 +11,5 @@ variable "subnet_tag" {
   type = map(any)
   default = {
     "Name" = "prod-subnet"
-  }
-}
-
-variable "vpc_tag" {
-  type = map(any)
-  default = {
-    "Name" = "prod-vpc"
-  }
-}
-
-variable "sg_name" {
-  type = map(any)
-  default = {
-    "Name" = "allow_web"
   }
 }
